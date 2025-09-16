@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import retrofit2.HttpException
+import java.io.IOException
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -33,8 +35,15 @@ class LoginViewModel @Inject constructor(
             try {
                 val response = repo.login(campus, username, password)
                 _keypass.value = response.keypass
+            } catch (e: HttpException) {
+                // Handles 4xx and 5xx errors (wrong campus, wrong credentials, server issue)
+                _error.value = "Login failed. Check campus and credentials."
+            } catch (e: IOException) {
+                // Handles no internet / timeout
+                _error.value = "Network error. Please check your connection."
             } catch (e: Exception) {
-                _error.value = e.message ?: "Login failed. Check credentials & campus."
+                // Anything unexpected
+                _error.value = "Something went wrong. Please try again."
             } finally {
                 _loading.value = false
             }

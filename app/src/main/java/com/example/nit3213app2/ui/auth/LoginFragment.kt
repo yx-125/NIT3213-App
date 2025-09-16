@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.nit3213app2.LoginValidator
 import com.example.nit3213app2.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -72,41 +73,18 @@ class LoginFragment : Fragment() {
             val p = binding.passwordInput.text?.toString()?.trim().orEmpty()
             val c = binding.campusInput.text?.toString()?.trim().orEmpty()
 
-            var valid = true
+            val errors = LoginValidator.validateLoginInput(c, u, p)
 
-            // --- Validate campus ---
-            val allowedCampuses = listOf("footscray", "sydney", "br")
-            if (c.isEmpty()) {
-                binding.campusInput.error = "Required (select campus)"
-                valid = false
-            } else if (!allowedCampuses.contains(c.lowercase())) {
-                binding.campusInput.error = "Invalid campus (must be footscray, sydney or br)"
-                valid = false
-            }
+            // Show inline errors for each field
+            binding.campusInput.error = errors.campusError
+            binding.usernameInput.error = errors.usernameError
+            binding.passwordInput.error = errors.passwordError
 
-            // --- Validate username ---
-            if (u.isEmpty()) {
-                binding.usernameInput.error = "Required (enter first name)"
-                valid = false
-            } else if (!u.matches(Regex("^[A-Za-z]+\$"))) {
-                // only allow alphabetic strings
-                binding.usernameInput.error = "Username must contain letters only"
-                valid = false
-            }
+            if (errors.isValid) {
+                // Clear any leftover global error
+                binding.errorText.visibility = View.GONE
 
-            // --- Validate password ---
-            if (p.isEmpty()) {
-                binding.passwordInput.error = "Required (enter student ID without the s)"
-                valid = false
-            } else if (!p.matches(Regex("^\\d{7}\$"))) {
-                // must be exactly 7 digits
-                binding.passwordInput.error = "Password must contain 7 digits only"
-                valid = false
-            }
-
-            // --- Trigger login if all inputs valid ---
-            if (valid) {
-                vm.campus = c.lowercase()
+                // Proceed with login
                 vm.login(u, p)
             }
         }

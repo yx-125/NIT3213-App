@@ -21,6 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Fragment responsible for handling the login screen
+ */
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
@@ -44,11 +47,11 @@ class LoginFragment : Fragment() {
             vm.campus = campuses[pos]
         }
 
-        // --- Clear inline errors while typing ---
+        // Clear inline errors as user types
         binding.usernameInput.doAfterTextChanged { binding.usernameInput.error = null }
         binding.passwordInput.doAfterTextChanged { binding.passwordInput.error = null }
 
-        // --- Password toggle (one icon + tint color) ---
+        // --- Password toggle ---
         var isPasswordVisible = false
         binding.togglePasswordVisibility.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
@@ -64,6 +67,7 @@ class LoginFragment : Fragment() {
                     ContextCompat.getColor(requireContext(), com.example.nit3213app2.R.color.black_tint_55)
                 )
             }
+            // Move cursor to the end after toggling
             binding.passwordInput.setSelection(binding.passwordInput.text?.length ?: 0)
         }
 
@@ -81,15 +85,15 @@ class LoginFragment : Fragment() {
             binding.passwordInput.error = errors.passwordError
 
             if (errors.isValid) {
-                // Clear any leftover global error
+                // Hide any global error message
                 binding.errorText.visibility = View.GONE
-
                 // Proceed with login
                 vm.login(u, p)
             }
         }
 
         // --- Collect states from ViewModel ---
+        // Observe loading spinner visibility
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.loading.collectLatest {
@@ -97,6 +101,7 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+        // Observe error messages from login attempt
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.error.collectLatest { msg ->
@@ -105,6 +110,7 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+        // Navigate to Dashboard when keypass is available
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.keypass.collectLatest { kp ->
@@ -122,6 +128,9 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Clean up the binding when the view is destroyed to avoid memory leaks
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

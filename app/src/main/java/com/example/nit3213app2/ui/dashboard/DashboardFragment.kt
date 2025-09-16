@@ -17,6 +17,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collectLatest
 
+/**
+ * Dashboard screen that displays a list of dashboard entities retrieved from the API
+ */
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
 
@@ -30,7 +33,7 @@ class DashboardFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        // Set up RecyclerView
+        // --- RecyclerView setup with item click navigation ---
         adapter = DashboardAdapter { entity ->
             val args = Bundle().apply {
                 putString("title", entity.artworkTitle)
@@ -43,17 +46,20 @@ class DashboardFragment : Fragment() {
         }
         binding.recyclerView.adapter = adapter
 
-        // Get keypass passed from LoginFragment
+        // Load dashboard items if keypass was passed from LoginFragment
         val keypass = arguments?.getString("keypass")
         if (!keypass.isNullOrEmpty()) {
             vm.loadDashboard(keypass)
         }
 
+        // --- Collect UI state from ViewModel ---
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Observe dashboard items and update adapter
                 launch {
                     vm.items.collectLatest { adapter.submitList(it) }
                 }
+                // Observe error messages and show a Toast
                 launch {
                     vm.error.collectLatest { msg ->
                         if (msg != null) {
@@ -67,6 +73,9 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Clean up the binding when the view is destroyed to prevent memory leaks
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.nit3213app2.databinding.FragmentDetailsBinding
 
+/**
+ * Fragment that displays the details of a selected dashboard entity
+ */
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
@@ -17,7 +20,7 @@ class DetailsFragment : Fragment() {
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-        // --- Read arguments passed from DashboardFragment ---
+        // Read arguments passed from DashboardFragment
         val args = requireArguments()
         val title = args.getString("title")
         val artist = args.getString("artist")
@@ -25,7 +28,7 @@ class DetailsFragment : Fragment() {
         val medium = args.getString("medium")
         val description = args.getString("description")
 
-        // --- Populate UI ---
+        // Populate UI with details
         binding.artworkTitle.text = title
         binding.artistValue.text = artist
         binding.yearValue.text = year
@@ -35,6 +38,9 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Clear binding reference when the view is destroyed to avoid memory leaks
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

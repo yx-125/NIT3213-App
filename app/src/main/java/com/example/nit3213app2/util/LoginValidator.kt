@@ -1,5 +1,8 @@
 package com.example.nit3213app2.util
 
+/**
+ * Represents validation results for login input fields
+ */
 data class ValidationErrors(
     val campusError: String? = null,
     val usernameError: String? = null,
@@ -8,9 +11,16 @@ data class ValidationErrors(
     val isValid get() = campusError == null && usernameError == null && passwordError == null
 }
 
+/**
+ * Utility object for validating login input
+ */
 object LoginValidator {
+    // List of valid campus identifiers
     private val validCampuses = listOf("footscray", "sydney", "br")
 
+    /**
+     * Validates the provided login input values
+     */
     fun validateLoginInput(campus: String, username: String, password: String): ValidationErrors {
         var campusError: String? = null
         var usernameError: String? = null

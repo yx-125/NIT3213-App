@@ -26,8 +26,9 @@ class DashboardViewModel @Inject constructor(
             try {
                 _items.value = repo.fetchDashboard(keypass)
             } catch (e: Exception) {
-                _error.value = e.message ?: "Failed to load dashboard."
+                _error.value = "Failed to load dashboard: ${e.message ?: "Unknown error"}"
             }
         }
     }
+
 }

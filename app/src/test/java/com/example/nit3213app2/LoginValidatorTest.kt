@@ -1,5 +1,6 @@
 package com.example.nit3213app2
 
+import com.example.nit3213app2.util.LoginValidator
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

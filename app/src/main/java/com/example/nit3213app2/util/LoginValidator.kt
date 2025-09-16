@@ -1,4 +1,4 @@
-package com.example.nit3213app2
+package com.example.nit3213app2.util
 
 data class ValidationErrors(
     val campusError: String? = null,

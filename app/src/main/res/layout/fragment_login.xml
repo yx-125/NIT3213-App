@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.LoginFragment">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/loginHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/source_sans_3_bold"
+        android:lineSpacingExtra="-6dp"
+        android:layout_marginHorizontal="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/campusInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <!-- Campus dropdown -->
+    <AutoCompleteTextView
+        android:id="@+id/campusInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/source_sans_3_semibold"
+        android:hint="@string/campus"
+        android:drawableStart="@drawable/ic_campus"
+        android:drawablePadding="8dp"
+        android:background="@drawable/input_field_bg"
+        android:focusable="true"
+        android:clickable="true"
+        android:cursorVisible="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:dropDownHeight="wrap_content"
+        android:dropDownWidth="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/loginHeader"
+        app:layout_constraintBottom_toTopOf="@id/usernameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="36dp"/>
+
+    <!-- Username field -->
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/source_sans_3_semibold"
+        android:hint="@string/username"
+        android:autofillHints="name"
+        android:drawableStart="@drawable/ic_person"
+        android:drawablePadding="8dp"
+        android:background="@drawable/input_field_bg"
+        android:inputType="textPersonName"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/campusInput"
+        app:layout_constraintBottom_toTopOf="@id/passwordContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Password field (with toggle button inside a RelativeLayout) -->
+    <RelativeLayout
+        android:id="@+id/passwordContainer"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="32dp"
+        app:layout_constraintTop_toBottomOf="@id/usernameInput"
+        app:layout_constraintBottom_toTopOf="@id/loginButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <EditText
+            android:id="@+id/passwordInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/source_sans_3_semibold"
+            android:hint="@string/password"
+            android:autofillHints="password"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="8dp"
+            android:background="@drawable/input_field_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="48dp"
+            android:inputType="textPassword"/>
+
+        <ImageView
+            android:id="@+id/togglePasswordVisibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_visibility"
+            android:paddingStart="0dp"
+            android:paddingEnd="16dp"
+            android:contentDescription="@string/show_password"
+             />
+    </RelativeLayout>
+
+
+    <!-- Login button -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/source_sans_3_bold"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:background="@drawable/login_button_bg"
+        app:layout_constraintTop_toBottomOf="@id/passwordContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="30dp"/>
+
+    <!-- Progress spinner -->
+    <ProgressBar
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/loginButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36dp" />
+
+    <!-- Error text -->
+    <TextView
+        android:id="@+id/errorText"
+        android:visibility="gone"
+        android:textColor="@color/melon"
+        android:textSize="14sp"
+        android:fontFamily="@font/source_sans_3_semibold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/progress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

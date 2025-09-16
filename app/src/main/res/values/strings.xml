@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">NIT3213 App 2</string>
+    <string name="help">Help</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="app_logo">app_logo</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="item_artist">Artist: %1$s</string>
+    <string name="item_year">Year: %1$d</string>
+    <string name="item_medium">Medium: %1$s</string>
+    <string name="details">Details</string>
+    <string name="show_details">Show details</string>
+    <string name="more_details_are_available">More details are available</string>
+    <string name="no_description_available">No description available</string>
+    <string name="artist">Artist</string>
+    <string name="description">Description</string>
+    <string name="medium">Medium</string>
+    <string name="year">Year</string>
+    <string name="campus">Campus</string>
+    <string name="show_password">Show password</string>
+    <string name="welcome">Welcome,\nlet\'s sign you in</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="black_tint_85">#4D4D4F</color>
+    <color name="black_tint_55">#8A8C8E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#5BC2E7</color>
+    <color name="dark_aubergine">#1E1248</color>
+    <color name="grey">#ECECEC</color>
+    <color name="yellow">#FED76F</color>
+    <color name="melon">#ED6B5E</color>
+    <color name="melon_85">#F6958A</color>
+    <color name="grape">#B49AD2</color>
+    <color name="tango">#F79554</color>
+</resources>

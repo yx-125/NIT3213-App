@@ -13,7 +13,7 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
-    android:backgroundTint="#C7E2EE">
+    android:backgroundTint="#CEE0F5">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -97,8 +97,8 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#5BB1E7"
-            android:fontFamily="@font/source_sans_3_regular"
+            android:backgroundTint="#567EE2"
+            android:fontFamily="@font/source_sans_3_semibold"
             android:textColor="@color/white"
             android:text="@string/show_details"
             android:visibility="gone"
